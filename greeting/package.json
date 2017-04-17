@@ -1,0 +1,26 @@
+{
+  "name": "greeting-example",
+  "version": "1.0.0",
+  "description": "node greeting example",
+  "main": "app.js",
+  "scripts": {
+    "postinstall": "npm test",
+    "prestart": "npm run lint",
+    "start": "node app.js",
+    "lint": "jshint **.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "node",
+    "training"
+  ],
+  "author": "Luis Carlos Chivata",
+  "license": "ISC",
+  "dependencies": {
+    "moment": "^2.18.1"
+  },
+  "devDependencies": {
+    "colors": "^1.1.2",
+    "jshint": "^2.9.4"
+  }
+}
