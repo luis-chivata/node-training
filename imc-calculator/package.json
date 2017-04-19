@@ -1,0 +1,30 @@
+{
+  "name": "imc-calculator",
+  "version": "1.0.0",
+  "description": "this program calulates a body mass index (IMC) using height in centimeters and weight in kilograms",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/luis-chivata/node-training.git"
+  },
+  "keywords": [
+    "node",
+    "training",
+    "health",
+    "fitness"
+  ],
+  "author": "Luis Carlos Chivata",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/luis-chivata/node-training/issues"
+  },
+  "homepage": "https://github.com/luis-chivata/node-training#readme",
+  "dependencies": {
+    "chalk": "^1.1.3",
+    "commander": "^2.9.0",
+    "moment": "^2.18.1"
+  }
+}
