@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-var moment = require('moment')
+var moment = require('moment');
 var program = require('commander');
 var chalk = require('chalk');
 
