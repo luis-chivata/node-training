@@ -1,21 +1,18 @@
 {
-  "name": "imc-interactive-calculator",
+  "name": "piping-exercise",
   "version": "1.0.0",
-  "description": "imc calculator that asks the user for input data",
+  "description": "example of stdin piping thru a file",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "babel -w app.js -o app-babel.js && node app-babel.js -s"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/luis-chivata/node-training.git"
   },
   "keywords": [
-    "node",
     "training",
-    "health",
-    "fitness"
+    "nodejs"
   ],
   "author": "Luis Carlos Chivata",
   "license": "ISC",
@@ -27,9 +24,5 @@
     "chalk": "^1.1.3",
     "inquirer": "^3.0.6",
     "moment": "^2.18.1"
-  },
-  "devDependencies": {
-    "babel-cli": "^6.24.1",
-    "babel-preset-env": "^1.4.0"
   }
 }
