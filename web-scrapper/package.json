@@ -1,0 +1,26 @@
+{
+  "name": "web-scrapper",
+  "version": "1.0.0",
+  "description": "a simple, friendly web and file scrapper",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/luis-chivata/node-training.git"
+  },
+  "keywords": [
+    "nodejs",
+    "training"
+  ],
+  "author": "Luis Carlos Chivata",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/luis-chivata/node-training/issues"
+  },
+  "homepage": "https://github.com/luis-chivata/node-training#readme",
+  "dependencies": {
+    "request": "^2.81.0"
+  }
+}
