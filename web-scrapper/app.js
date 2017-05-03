@@ -1,40 +1,42 @@
-var request = require('request');
-var fs = require('fs');
-var http = require('http');
-var qs = require('querystring');
+const request = require('request');
+const fs = require('fs');
+const http = require('http');
+const qs = require('querystring');
 
-var resource = process.argv[2];
-var source;
+//Regexp para URL, creada por Diego Perini (http://www.iport.it)
+const regUrl = /^(?:(?:https?|ftp):\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,}))\.?)(?::\d{2,5})?(?:[/?#]\S*)?$/i
+const regFile = /^([\w\/]*?)([\w\.]*)\.(txt|log|dat|jpg|jpeg|png|gif|bmp)$/
 
-var server = http.createServer(function(req,res){
-    var str = req.url.split('?')[1];
-    var qobject = qs.parse(str);
+let resource = process.argv[2];
+let source;
+
+const server = http.createServer(function(req,res){
+    const str = req.url.split('?')[1];
+    const qobject = qs.parse(str);
     if(qobject['src']!==undefined){
         resource = qobject['src'];
     }
     res.writeHead(200, {"Content-Type": "text/html"});
-    if(resource.substr(0,4)==='http') {
-        source = request(resource).pipe(res);
+    if(regUrl.test(resource)==true) {
+        source = request(resource);
+        source.on('error', (err) => {
+            res.end(err.message);
+        })
+        .pipe(res);
+    } else if(regFile.test(resource)) {
+        source = fs.createReadStream(resource);
+        source.on('error', (err) => {
+            res.end(err.message);
+        })
+        .pipe(res);
     } else {
-        source = fs.createReadStream(resource).pipe(res);
+        res.end('Recurso invalido');
     }
-    source.on('end', function(){
+
+
+    /*source.on('end', () => {
         res.end();
-    });
+    });*/
 });
 
 server.listen(9090);
-
-/*var server = http.createServer(function(req,res){
-    res.writeHead(200, {"Content-Type": "text/html"});
-    var pipe = request.get(resource)
-    .on('response', function(response){
-        res.write(response.statusCode);
-    })
-    .pipe(res);
-    pipe.on('end',function(){
-        res.end();
-    });
-});
-
-server.listen(9090);*/
