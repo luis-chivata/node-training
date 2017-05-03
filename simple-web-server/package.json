@@ -1,0 +1,26 @@
+{
+  "name": "simple-web-server",
+  "version": "1.0.0",
+  "description": "A simple web server on node",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/luis-chivata/node-training.git"
+  },
+  "keywords": [
+    "web",
+    "server",
+    "node",
+    "training"
+  ],
+  "author": "Luis Carlos Chivata",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/luis-chivata/node-training/issues"
+  },
+  "homepage": "https://github.com/luis-chivata/node-training#readme"
+}
