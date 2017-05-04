@@ -1,0 +1,32 @@
+{
+  "name": "using-express",
+  "version": "1.0.0",
+  "description": "basic express server",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/luis-chivata/node-training.git"
+  },
+  "keywords": [
+    "training",
+    "node",
+    "express"
+  ],
+  "author": "Luis Carlos Chivata",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/luis-chivata/node-training/issues"
+  },
+  "homepage": "https://github.com/luis-chivata/node-training#readme",
+  "dependencies": {
+    "express": "^4.15.2"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  }
+}
