@@ -4,7 +4,7 @@ const express = require('express');
 const morgan = require('morgan');
 const logger = require('winston');
 
-const api = require("./api");
+const api = require("./api/v1");
 
 const app = express();
 
@@ -15,7 +15,8 @@ const requestTime = function(req, res, next) {
 
 app.use(morgan('common'));
 
-app.use("/api",api);
+app.use("/api", api);
+app.use("api/v1", api);
 
 app.get('/', (req, res) => {
     logger.info("Home Page")
