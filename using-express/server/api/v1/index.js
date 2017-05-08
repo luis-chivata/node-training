@@ -1,13 +1,13 @@
 "use strict";
 
 const router = require("express").Router();
-const logger = require("winston");
 
-router.get("/users",(req, res, next) => {
-    logger.info("Get all users");
-    res.json({
-        "message": "Get all Users"
-    });
-});
+const usersRoutes = require("./routes/users");
+const categoriesRoutes = require("./routes/categories.js");
+const postsRoutes = require("./routes/posts");
+
+router.use('/users', usersRoutes);
+router.use('/posts', postsRoutes);
+router.use('/categories', categoriesRoutes);
 
 module.exports = router;
