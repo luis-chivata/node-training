@@ -4,8 +4,12 @@ const express = require('express');
 const morgan = require('morgan');
 const logger = require('winston');
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
 
+const config = require('./config');
 const api = require("./api/v1");
+
+mongoose.connect(config.db.url);
 
 const app = express();
 
