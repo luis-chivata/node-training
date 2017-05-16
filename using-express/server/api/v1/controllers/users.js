@@ -2,16 +2,28 @@
 
 const logger = require("winston");
 
+const User = require("./../schemas/users");
+
 exports.all = (req, res, next) => {
-    res.json([
-        { "_id": 1, "name": "Pedro Perez" },
-        { "_id": 2, "name": "Juan Perez" }
-    ]);
+    User.find()
+        .then( users => {
+            res.json(users);
+        })
+        .catch( err => {
+            next(new Error(err));
+        });
 };
 
 exports.post = (req, res, next) => {
-    logger.info(req.body);
-    res.json(req.body);
+    let body = req.body;
+    let newUser = new User(body);
+    newUser.save()
+        .then( user => {
+            res.json(user);
+        })
+        .catch( err => {
+            next(new Error(err));
+        });
 };
 
 exports.get = (req, res, next) => {

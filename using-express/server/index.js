@@ -5,10 +5,12 @@ const morgan = require('morgan');
 const logger = require('winston');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const bluebird = require('bluebird');
 
 const config = require('./config');
 const api = require("./api/v1");
 
+mongoose.Promise = bluebird;
 mongoose.connect(config.db.url);
 
 const app = express();
