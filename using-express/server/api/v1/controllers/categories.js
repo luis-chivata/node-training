@@ -1,29 +1,67 @@
 "use strict";
 
 const logger = require("winston");
+const _ = require("lodash");
+
+const Category = require("./../schemas/categories");
 
 exports.all = (req, res, next) => {
-    res.json([
-        { "_id": 1, "name": "Matematicas" },
-        { "_id": 2, "name": "Fisica" },
-        { "_id": 3, "name": "Historia"}
-    ]);
+    Category.find()
+        .then( categories => {
+            res.json(categories);
+        })
+        .catch( err => {
+            next( new Error(err));
+        });
 };
 
 exports.post = (req, res, next) => {
-    logger.info(req.body);
-    res.json(req.body);
+    let body = req.body;
+    let newCategory = new Category(body);
+    newCategory.save()
+        .then( category => {
+            res.json(category);
+        })
+        .catch( err => {
+            next( new Error(err));
+        });
 };
 
 exports.get = (req, res, next) => {
-    logger.info(req.params.id);
-    res.json({"_id": req.params.id});
+    const id = req.params.id
+
+    Category.findById(id)
+        .then( category => {
+            res.json(category);
+        })
+        .catch( err => {
+            res.json({
+                "message": "User not found"
+            });
+        });
 }
 
 exports.put = (req, res, next) => {
-    res.json({});
-}
+    const body = req.body;
+    const category = _.merge(req.category,body);
+
+    category.save()
+        .then( updated => {
+            res.json(updated);
+        })
+        .catch( err => {
+            next( new Error(err));
+        });
+};
 
 exports.delete = (req, res, next) => {
-    res.json({});
-}
+    const category = req.category;
+
+    category.remove()
+        .then(removed => {
+            res.json(removed);
+        })
+        .catch( err => {
+            next(new Error(err));
+        });
+};

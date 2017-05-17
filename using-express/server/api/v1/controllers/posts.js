@@ -1,29 +1,72 @@
 "use strict";
 
 const logger = require("winston");
+const _ = require("lodash");
+
+const Post = require("./../schemas/posts");
 
 exports.all = (req, res, next) => {
-    res.json([
-        { "_id":1, "name": "Primer post" },
-        { "_id":2, "name": "Segundo post"},
-        { "_id":3, "name": "Tercer post"}
-    ]);
+    Post.find()
+        .then( posts => {
+            res.json(posts);
+        })
+        .catch( err => {
+            next( new Error(err));
+        })
 };
 
 exports.post = (req, res, next) => {
-    logger.info(req.body);
-    res.json(req.body);
+    let body = req.body;
+
+    let newPost = new Post(body);
+    newPost.save()
+        .then( post => {
+            res.json(post);
+        })
+        .catch( err => {
+            next( new Error(err));
+        });
 };
 
 exports.get = (req, res, next) => {
-    logger.info(req.params.id);
-    res.json({ "_id": req.params.id });
-}
+    const id = req.params.id;
+
+    Post.findById(id)
+        .then( post => {
+            if(post) {
+                res.json(post);
+            } else {
+                res.json({
+                    "message": "post not found"
+                });
+            }
+        })
+        .catch( err => {
+            next( new Error(err));
+        });
+};
 
 exports.put = (req, res, next) => {
-    res.json({});
-}
+    const body = req.body;
+    const post = _.merge(req.post, body);
+
+    post.save()
+        .then( updated => {
+            res.json(updated);
+        })
+        .catch( err => {
+            next( new Error(err));
+        });
+};
 
 exports.delete = (req, res, next) => {
-    res.json({});
-}
+    const post = req.post;
+
+    post.remove()
+        .then(removed => {
+            res.json(removed);
+        })
+        .catch( err => {
+            next(new Error(err));
+        });
+};

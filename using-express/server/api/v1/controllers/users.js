@@ -1,6 +1,7 @@
 "use strict";
 
 const logger = require("winston");
+const _ = require("lodash");
 
 const User = require("./../schemas/users");
 
@@ -27,14 +28,44 @@ exports.post = (req, res, next) => {
 };
 
 exports.get = (req, res, next) => {
-    logger.info(req.params.id);
-    res.json({ "_id": req.params.id });
+    const id = req.params.id;
+
+    User.findById(id)
+        .then( user => {
+            if(user) {
+                res.json(user);
+            } else {
+                res.json({
+                    "message": "User not found"
+                });
+            }
+        })
+        .catch( err => {
+            next(new Error(err));
+        });
 };
 
 exports.put = (req, res, next) => {
-    res.json({});
+    const body = req.body;
+    const user = _.merge(req.user, body);
+
+    user.save()
+        .then( updated => {
+            res.json(updated);
+        })
+        .catch( err => {
+            next(new Error(err));
+        });
 };
 
 exports.delete = (req, res, next) => {
-    res.json({});
+    const user = req.user;
+
+    user.remove()
+        .then(removed => {
+            res.json(removed);
+        })
+        .catch( err => {
+            next(err);
+        });
 };
