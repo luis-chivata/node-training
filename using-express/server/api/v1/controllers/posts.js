@@ -5,8 +5,29 @@ const _ = require("lodash");
 
 const Post = require("./../schemas/posts");
 
+exports.params = (req, red, next, id) => {
+    Post.findById(id)
+        .populate("author categories")
+        .exec()
+        .then( post => {
+            if( post ) {
+                req.post = post;
+                next();
+            } else {
+                res.json({
+                    "message": "Post not found"
+                });
+            }
+        })
+        .catch( err => {
+            next(new Error(err));
+        });
+};
+
 exports.all = (req, res, next) => {
     Post.find()
+        .populate("author categories")
+        .exec()
         .then( posts => {
             res.json(posts);
         })

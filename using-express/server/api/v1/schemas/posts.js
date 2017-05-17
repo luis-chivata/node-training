@@ -11,7 +11,15 @@ const PostSchema = new Schema({
     description: {
         type: String,
         required: true
-    }
+    },
+    author: {
+        type: Schema.Types.ObjectId,
+        ref: "user"
+    },
+    categories: [{
+        type: Schema.Types.ObjectId,
+        ref: "category"
+    }]
 }, {
     timestamps: true
 });
